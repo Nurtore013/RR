@@ -1,0 +1,42 @@
+#include <iostream>
+#include <thread>
+
+using namespace std;
+
+class TestThread
+{
+  public:
+      TestThread();
+      ~TestThread();
+      void foo();
+      void bar();
+};
+
+TestThread::TestThread()
+{}
+
+TestThread::~TestThread()
+{}
+
+void TestThread::foo()
+{
+  while(true)
+    cout << "Thread 1 reporting" << endl;
+}
+
+void TestThread::bar()
+{
+  while(true)
+    cout << "Thread 2 reporting" << endl;
+}
+
+
+int main(int argc, char**argv)
+{
+   TestThread test;
+   thread t1(&TestThread::foo, &test);
+   thread t2(&TestThread::bar, &test);
+   t1.join();
+   t2.join();
+   return 0;
+} 
